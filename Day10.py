@@ -1,7 +1,7 @@
 
 
 inp = [0]
-with open("example.txt", "r") as file:
+with open("Inputs/day10.txt", "r") as file:
     for line in file:
         inp.append(int(line.rstrip()))
 

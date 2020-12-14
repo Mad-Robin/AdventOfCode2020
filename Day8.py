@@ -78,7 +78,7 @@ def attempt_to_run_code(instr):
 
 def main():
     instructions = []
-    with open("day8.txt", "r") as file:
+    with open("Inputs/day8.txt", "r") as file:
         for line in file:
             instructions.append(Line(line.rstrip().split(' ')))
     question_2(instructions)

@@ -1,17 +1,7 @@
-import pandas as pd
 import numpy as np
 
-inp = []
 
-with open("day3.txt", "r") as file:
-    for line in file:
-        line = list(line.rstrip()) * 100
-        inp.append(line)
-
-data = np.array(inp)
-
-
-def trees_hit(x_inc, y_inc):
+def tress_hit(x_inc, y_inc, data):
     poi = []
     start_x = 0
     start_y = 0
@@ -30,5 +20,23 @@ def trees_hit(x_inc, y_inc):
 
     return sum(poi)
 
-TH = TreesHit(1,1)*TreesHit(3,1)*TreesHit(5,1)*TreesHit(7,1)*TreesHit(1,2)
-print(TH)
+
+def main():
+    inp = []
+    with open("Inputs/day3.txt", "r") as file:
+        for line in file:
+            line = list(line.rstrip()) * 100
+            inp.append(line)
+    data = np.array(inp)
+
+    paths = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
+    total_trees_hit = 1
+    for path in paths:
+        total_trees_hit *= tress_hit(path[0], path[1], data)
+
+    print(tress_hit(3, 1, data))
+    print(total_trees_hit)
+
+
+if __name__ == '__main__':
+    main()

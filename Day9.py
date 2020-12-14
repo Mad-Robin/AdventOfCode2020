@@ -27,7 +27,7 @@ def contiguous_sum(data_set, target):
 
 def main():
     inp = []
-    with open("day9.txt", "r") as file:
+    with open("Inputs/day9.txt", "r") as file:
         for line in file:
             inp.append(int(line.rstrip()))
 

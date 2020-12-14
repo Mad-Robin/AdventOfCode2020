@@ -41,7 +41,7 @@ def bag_within_bag(bag_name, bag_dict):
 
 def main():
     bags = []
-    with open("day7.txt", "r") as file:
+    with open("Inputs/day7.txt", "r") as file:
         for line in file:
             bags.append(Bags(line))
 

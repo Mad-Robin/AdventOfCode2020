@@ -1,52 +1,65 @@
-import pandas as pd
+class Password:
+    def __init__(self, password):
+        self.min = int(password[0])
+        self.pos_1 = int(password[0]) - 1
+        self.max = int(password[1])
+        self.pos_2 = int(password[1]) - 1
+        self.letter = password[2]
+        self.word = password[3]
 
-with open("day2.txt", "r") as file:
 
-    inp =[]
-    for line in file:
-        inp.append(line.rstrip())
-
-def CleanData(password):
+def clean_data(password):
     password = password.replace(': ', ',')
     password = password.replace('-', ',')
     password = password.replace(' ', ',')
     password = password.split(',')
     return password
-    
-def Task1():
-    totalCnt = 0
 
-    for password in inp:
-        passstr = CleanData(password)
 
-        cnt = 0
-        for w in passstr[3]:
-            if w == passstr[2]:
-                cnt += 1
+def task_1(input_data):
+    total_count = 0
 
-        if cnt >= int(passstr[0]) and cnt <= int(passstr[1]):
-            totalCnt += 1
+    for password in input_data:
+        password = clean_data(password)
+        password = Password(password)
 
-    print totalCnt
+        count = 0
+        for letter in password.word:
+            if letter == password.letter:
+                count += 1
 
-def Task2():
-    totalCnt = 0
-    offCnt = 0
+        if password.min <= count <= password.max:
+            total_count += 1
+    return total_count
 
-    for password in inp:
-        passstr = CleanData(password)
 
-        try:
-            if (passstr[3][int(passstr[0])-1] == passstr[2]) or (passstr[3][int(passstr[1])-1] == passstr[2]):
-                if passstr[3][int(passstr[0])-1] == passstr[3][int(passstr[1])-1]:
-                    continue
-                else:
-                    totalCnt += 1
+def task_2(input_data):
+    total_count = 0
+    off_count = 0
+
+    for password in input_data:
+        pass_string = clean_data(password)
+        pass_string = Password(pass_string)
+        if (pass_string.word[pass_string.pos_1] == pass_string.letter) \
+                or (pass_string.word[pass_string.pos_2] == pass_string.letter):
+            if pass_string.word[pass_string.pos_1] == pass_string.word[pass_string.pos_2]:
+                continue
             else:
-                offCnt += 1
-        except:
-            print passstr
+                total_count += 1
+        else:
+            off_count += 1
+    return total_count
 
-    print totalCnt
 
-Task2()
+def main():
+    with open("Inputs/day2.txt", "r") as file:
+        inp = []
+        for line in file:
+            inp.append(line.rstrip())
+
+    print(task_1(inp))
+    print(task_2(inp))
+
+
+if __name__ == '__main__':
+    main()

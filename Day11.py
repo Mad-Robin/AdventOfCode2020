@@ -7,24 +7,21 @@ def check_adjacent(x, y, array):
     width = array.shape[0]
     height = array.shape[1]
 
-    for ii in range(x-1, x+2):
-        for jj in range(y-1, y+2):
-            if 0 <= ii < width and 0 <= jj < height:
-                if ii == x and jj == y:
+    for i in range(x-1, x+2):
+        for j in range(y-1, y+2):
+            if 0 <= i < width and 0 <= j < height:
+                if i == x and j == y:
                     continue
-                elif array[ii, jj] in ["L", "."]:
+                elif array[i, j] in ["L", "."]:
                     empty_seats += 1
-                elif array[ii, jj] == "#":
+                elif array[i, j] == "#":
                     occupied_seats += 1
-
-    # print("This:", this_seat, "Occupied:", occupied_seats, "Empty:", empty_seats)
     return occupied_seats
 
 
-def check_all_adjacent(x, y, array):
+def check_q2_adjacent(x, y, array):
     occupied_seats = 0
     empty_seats = 0
-    # this_seat = array[x, y]
     width = array.shape[0]
     height = array.shape[1]
 
@@ -44,10 +41,8 @@ def check_all_adjacent(x, y, array):
                         while True:
                             a += (i - x)
                             b += (j - y)
-                            # print(x, y, i, j, a, b, i+a, j+b)
                             if 0 <= (i+a) < width and 0 <= (j+b) < height:
                                 next_value = find_value(i+a, j+b, array)
-                                # print(next_value)
                                 if next_value == "L":
                                     empty_seats += 1
                                     break
@@ -56,8 +51,6 @@ def check_all_adjacent(x, y, array):
                                     break
                             else:
                                 break
-
-    # print("This:", this_seat, "Occupied:", occupied_seats, "Empty:", empty_seats)
     return occupied_seats
 
 
@@ -90,12 +83,12 @@ def check_seats(starting_array):
     return resulting_array
 
 
-def check_all_seats(array):
+def check_q2_seats(array):
     resulting_array = np.chararray((array.shape[0], array.shape[1]), unicode=True)
 
     for i in range(0, resulting_array.shape[0]):
         for j in range(0, resulting_array.shape[1]):
-            seats_occupied = check_all_adjacent(i, j, array)
+            seats_occupied = check_q2_adjacent(i, j, array)
             if array[i, j] == '.':
                 resulting_array[i, j] = '.'
             elif array[i, j] == 'L' and seats_occupied == 0:
@@ -122,33 +115,32 @@ def question_1(original_array):
         if (iteration_data == check_seats(iteration_data)).all():
             break
         iteration_data = check_seats(iteration_data)
-
     total_occupied_seats(iteration_data)
 
 
 def question_2(array):
-    iteration_data = check_all_seats(array)
+    iteration_data = check_q2_seats(array)
     iterations = 0
     while True:
-        if (iteration_data == check_all_seats(iteration_data)).all():
+        if (iteration_data == check_q2_seats(iteration_data)).all():
             break
         else:
             iterations += 1
 
-        iteration_data = check_all_seats(iteration_data)
+        iteration_data = check_q2_seats(iteration_data)
 
     total_occupied_seats(iteration_data)
 
 
 def main():
     inp = []
-    with open("day11.txt", "r") as file:
+    with open("Inputs/day11.txt", "r") as file:
         for line in file:
             inp.append(explode_string(line.rstrip()))
 
     data = np.array(inp)
 
-    # question_1(data)
+    question_1(data)
     question_2(data)
 
 
