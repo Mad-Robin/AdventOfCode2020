@@ -28,7 +28,7 @@ for seat in seats:
     taken_seats.append(seat.seat_id)
 
 possible_seats = []
-for i in range (seats_min, seats_max):
+for i in range(seats_min, seats_max):
     if i not in taken_seats:
         possible_seats.append(i)
 
